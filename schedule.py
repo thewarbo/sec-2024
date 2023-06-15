@@ -1,0 +1,28 @@
+import networkx as nx
+G = nx.Graph()
+
+G.add_nodes_from(["BAMA", "ARK", "AUB", "FLA", "UGA", "UK", "LSU", "UM", "MSU", "MIZZ", "OU", "USC", "TENN", "TEX", "TAMU", "VAN"])
+G.add_edges_from([("BAMA", "AUB"), ("BAMA", "UGA"), ("BAMA", "MIZZ"), ("BAMA", "USC")])
+G.add_edges_from([("ARK", "LSU"), ("ARK", "UM"), ("ARK", "TENN"), ("ARK", "TEX")])
+G.add_edges_from([("AUB", "TAMU"), ("AUB", "ARK"), ("AUB", "VAN"), ("AUB", "OU")])
+G.add_edges_from([("FLA", "LSU"), ("FLA", "TAMU"), ("FLA", "UM"), ("FLA", "UK")])
+G.add_edges_from([("UGA", "FLA"), ("UGA", "AUB"), ("UGA", "MSU"), ("UGA", "TENN")])
+G.add_edges_from([("UK", "USC"), ("UK", "AUB"), ("UK", "UGA"), ("UK", "VAN")])
+G.add_edges_from([("LSU", "BAMA"), ("LSU", "UM"), ("LSU", "VAN"), ("LSU", "OU")])
+G.add_edges_from([("UM", "MSU"), ("UM", "UGA"), ("UM", "UK"), ("UM", "OU")])
+G.add_edges_from([("MSU", "TAMU"), ("MSU", "ARK"), ("MSU", "FLA"), ("MSU", "MIZZ")])
+G.add_edges_from([("MIZZ", "ARK"), ("MIZZ", "AUB"), ("MIZZ", "VAN"), ("MIZZ", "OU")])
+G.add_edges_from([("OU", "TEX"), ("OU", "BAMA"), ("OU", "TENN"), ("OU", "USC")])
+G.add_edges_from([("USC", "LSU"), ("USC", "TAMU"), ("USC", "UM"), ("USC", "MIZZ")])
+G.add_edges_from([("TENN", "BAMA"), ("TENN", "MSU"), ("TENN", "FLA"), ("TENN", "UK")])
+G.add_edges_from([("TEX", "MSU"), ("TEX", "FLA"), ("TEX", "UGA"), ("TEX", "UK")])
+G.add_edges_from([("TAMU", "LSU"), ("TAMU", "ARK"), ("TAMU", "MIZZ"), ("TAMU", "TEX")])
+G.add_edges_from([("VAN", "TENN"), ("VAN", "BAMA"), ("VAN", "USC"), ("VAN", "TEX")])
+
+H = nx.Graph()
+H.add_nodes_from(G.nodes())
+H.add_edges_from(nx.non_edges(G))
+cliques = list(nx.find_cliques(H))
+cliques.sort(reverse = True, key=len)
+for i in cliques:
+    print(sorted(i))
